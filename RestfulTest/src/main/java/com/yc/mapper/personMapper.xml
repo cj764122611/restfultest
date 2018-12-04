@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.mapper.personMapper">
+	<cache eviction="FIFO" flushInterval="60000" size="512"
+		readOnly="true" />
+
+	<!-- 查询所有的用户信息 -->
+	<select id="selectAll" resultType="Person">
+		select id,name from person
+	</select>
+
+	<!-- 查询分页后的用户数据 -->
+	<select id="selectPersonInfoPage" parameterType="map"
+		resultType="Person">
+		select id,name from person limit #{page},#{pageSize}
+	</select>
+
+	<!-- 根据用户id更新数据 -->
+	<update id="updatePersonInfo" parameterType="Person">
+		update person
+		<set>
+			<if test="name != null ">
+				name = #{name},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<!-- 根据用户id删除用户信息 -->
+	<delete id="deletePersonInfo" parameterType="Integer">
+		delete from person
+		where id = #{id}
+	</delete>
+
+	<!-- 添加用户的信息 -->
+	<insert id="addPersonInfo" parameterType="Person">
+		insert into person
+		(name) values(#{name})
+	</insert>
+
+	<!-- 统计总条数 -->
+	<select id="findCount" resultType="Integer">
+		select count(*) from person
+	</select>
+
+	<!-- 统计总条数 -->
+	<select id="selectOne" parameterType="Integer"
+		resultType="Person">
+		select id,name from person where id = #{id}
+	</select>
+</mapper>

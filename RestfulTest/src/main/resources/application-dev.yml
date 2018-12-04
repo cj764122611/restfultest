@@ -1,0 +1,16 @@
+server:
+  port: 8888
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password: a
+  mvc:
+    view:
+      prefix: /pages/
+      suffix: .html
+mybatis:
+  mapper-locations:
+  - classpath:com/yc/mapper/*Mapper.xml
+  type-aliases-package: com.yc.beans
